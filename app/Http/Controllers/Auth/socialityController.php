@@ -18,7 +18,7 @@ class socialityController extends Controller
     public function Callback($provider)
     {
         $socialiteUser = Socialite::driver($provider)->user();
-
+//dd($socialiteUser);
         $existingUser = User::where('email', $socialiteUser->email)->first();
 
         if ($existingUser) {

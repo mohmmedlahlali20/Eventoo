@@ -20,8 +20,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('/admin', AdminController::class);
+});
 
-Route::resource('/admin', AdminController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

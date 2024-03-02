@@ -33,7 +33,7 @@
                             <td class="px-6 py-4">{{ $user->email_verified_at }}</td>
                             <td class="px-6 py-4">{{ $user->created_at }}</td>
                             <td class="px-6 py-4">
-                                <a href="" class="text-blue-500 hover:underline">Edit</a>
+                                <a href="{{ route('admin.destroy' , $user->id) }}" class="text-blue-500 hover:underline">Delete</a>
                             </td>
                         </tr>
                     @empty

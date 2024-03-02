@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('id_user')->constrained('users');
+            $table->foreignId('id_event')->constrained('evenements'); 
+            $table->integer('ticket_number')->unique();
+            $table->enum('status', ['valid', 'invalid']);
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('reservations');
     }
 };
