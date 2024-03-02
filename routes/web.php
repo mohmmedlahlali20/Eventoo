@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\socialityController;
 
@@ -18,6 +19,9 @@ use App\Http\Controllers\Auth\socialityController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::resource('/admin', AdminController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
