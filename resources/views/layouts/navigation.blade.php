@@ -22,6 +22,11 @@
                         {{ __('Show All users') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin.create')" :active="request()->routeIs('admin.create')">
+                        {{ __('Add Category') }}
+                    </x-nav-link>
+                </div>
                 @endrole
             </div>
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 
 class AdminController extends Controller
 {
@@ -22,15 +24,22 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.AddCategory');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+        $category = new Category([
+            'category_name' => $validatedData['category_name'],
+        ]);
+   
+        $category->save();
+
+        return redirect()->route('admin.create')->with('success', 'Category is added successfully');
     }
 
     /**

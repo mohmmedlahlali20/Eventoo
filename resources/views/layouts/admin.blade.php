@@ -24,10 +24,38 @@
                 </div>
             </header>
         @endif
+        <div class="max-w-md mx-auto mt-5">
+            @if (session('success'))
+        <div id="successMessage" class="bg-green-500 text-white p-4 mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+    
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+            <div  id="successMessage" class="bg-red-500 text-white p-4 mb-4">
+                <ul>
+                    <li>
+                        {{ $error }}
+                    </li>
+                </ul>
+            </div>
+            @endforeach
+        @endif
+        </div>
+        
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
         </div>
+        <script>
+                    setTimeout(function() {
+                var successMessage = document.getElementById('successMessage');
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+            }, 5000);
+        </script>
     </body>
 </html>
