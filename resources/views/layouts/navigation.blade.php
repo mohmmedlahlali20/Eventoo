@@ -33,10 +33,19 @@
                     </x-nav-link>
                 </div>
                 @endrole
-                @role('')
+                @role('Organisateur')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('Event.index')" :active="request()->routeIs('Event.index')">
+                        {{ __('Fuck you') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('Event.create')" :active="request()->routeIs('Event.create')">
+                        {{ __('Fuck you2') }}
+                    </x-nav-link>
+                </div>
+                @endrole
             </div>
-
-
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">

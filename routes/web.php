@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\Auth\socialityController;
 
@@ -27,6 +28,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/category', CategoryController::class);
 });
 
+Route::middleware(['auth', 'role:Organisateur'])->group(function () {
+    Route::resource('/Event', EvenementController::class);
+  
+});
 //Route::post('/assign-role/{user}', [OrganisateurController::class, 'assignRole'])->name('assign.role');
 
 

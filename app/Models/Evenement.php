@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Evenement extends Model
 {
     use HasFactory;
+
+protected $fillable = ['titre', 'description', 'lieu', 'date', 'places_number', 'id_organisateur', 'validation', 'status'];
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
