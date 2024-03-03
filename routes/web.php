@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\Auth\socialityController;
 
 /*
@@ -22,8 +24,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/admin', AdminController::class);
+    Route::resource('/category', CategoryController::class);
 });
 
+//Route::post('/assign-role/{user}', [OrganisateurController::class, 'assignRole'])->name('assign.role');
 
 
 Route::get('/dashboard', function () {

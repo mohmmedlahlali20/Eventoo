@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Organisateur;
 use Illuminate\Http\Request;
 
@@ -62,4 +63,6 @@ class OrganisateurController extends Controller
     {
         //
     }
+
+ 
 }

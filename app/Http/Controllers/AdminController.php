@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Evenement;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 
@@ -75,5 +76,13 @@ class AdminController extends Controller
         dd($DeletUser);
         $DeletUser->delete();
         return back()->with('success', 'delete opperateur');
+    }
+    public function Statistique()
+    {
+        $userCount = User::count();
+        $categoryCount = Category::count();
+        $eventCount = Evenement::count();
+    
+        return view('dashboard', compact('userCount', 'categoryCount', 'eventCount'));
     }
 }
