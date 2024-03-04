@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('evenements', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->string('description');
+            $table->text('description');
             $table->string('lieu');
             $table->date('date');
+            $table->string('image')->nullable();
             $table->integer('places_number');
             $table->foreignId('id_organisateur')->constrained('users');
+            $table->foreignId('category_id')->constrained('categories');
             $table->enum('validation', ['valid', 'invalid']);
             $table->enum('status', ['available', 'notAvailable']);
             $table->timestamps();

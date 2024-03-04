@@ -12,7 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('User.index')" :active="request()->routeIs('User.index')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
@@ -36,12 +36,12 @@
                 @role('Organisateur')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('Event.index')" :active="request()->routeIs('Event.index')">
-                        {{ __('Fuck you') }}
+                        {{ __('All Events') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('Event.create')" :active="request()->routeIs('Event.create')">
-                        {{ __('Fuck you2') }}
+                        {{ __('Add new Event') }}
                     </x-nav-link>
                 </div>
                 @endrole

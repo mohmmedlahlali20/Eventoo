@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EvenementController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\Auth\socialityController;
 
@@ -34,6 +35,12 @@ Route::middleware(['auth', 'role:Organisateur'])->group(function () {
 });
 //Route::post('/assign-role/{user}', [OrganisateurController::class, 'assignRole'])->name('assign.role');
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/User', EvenementController::class);
+    Route::get('/search', [EvenementController::class , 'search']);
+    Route::resource('/reservation', ReservationController::class);
+   // Route::get('/User/{evenement}', [EvenementController::class , 'detail'])->name('User.show');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -2,7 +2,7 @@
     <div class="container mx-auto p-8 bg-white rounded shadow mt-6 ">
 
         <h1 class="text-2xl text-center font-bold mb-6">Create Event</h1>
-        <form action="{{ route('Event.store') }}" method="post" class="max-w-md mx-auto">
+        <form action="{{ route('Event.store') }}" method="post" enctype="multipart/form-data" class="max-w-md mx-auto">
             @csrf
 
             <div class="mb-6">
@@ -28,6 +28,11 @@
             <div class="mb-4">
                 <label for="places_number" class="block text-gray-700 text-sm font-bold mb-2">Places Number:</label>
                 <input type="text" name="places_number" value="{{ old('places_number') }}" id="places_number" class="form-input w-full" >
+            </div>
+
+            <div class="mb-4">
+                <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Image Envent</label>
+                <input type="file" name="image" value="{{ old('image') }}" id="image" class="form-input w-full" >
             </div>
 
             <div class="mb-4">

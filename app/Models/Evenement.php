@@ -12,14 +12,25 @@ class Evenement extends Model
 {
     use HasFactory;
 
-protected $fillable = ['titre', 'description', 'lieu', 'date', 'places_number', 'id_organisateur', 'validation', 'status'];
+protected $fillable = [
+    'titre', 
+    'description',
+     'lieu', 
+     'date',
+     'image',
+      'places_number', 
+      'category_id',
+      'id_organisateur',
+       'validation',
+        'status'
+    ];
 
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function organizer()
+    public function organisateur()
     {
         return $this->belongsTo(User::class, 'id_organisateur');
     }

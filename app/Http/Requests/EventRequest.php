@@ -26,6 +26,7 @@ class EventRequest extends FormRequest
             'description'=>'required|min:20',
             'lieu'=>'required',
             'date' => 'required|date',
+            'image'=>'',
             'places_number'=>'numeric',
             'category'=>'required',
             'status'=>'required',

@@ -18,7 +18,7 @@ class EvenementController extends Controller
     {
         $Events = Evenement::latest('created_at')->where('status', 'available')->take(5)->get();
         //dd($Events);
-        return view('organisateur.index' ,compact('Events'));
+        return view('Users.index' ,compact('Events'));
 
     }
 
@@ -40,12 +40,19 @@ class EvenementController extends Controller
     public function store(EventRequest $request)
     {
 
-        $userId = Auth::id();
-        $validatedData = $request->validated();
-        $validatedData['id_organisateur'] = $userId;
-        $categoryId = $request->input('category');
-        $validatedData['category_id'] = $categoryId;
-       $event = Evenement::create($validatedData);
+            $userId = Auth::id();
+            $validatedData = $request->validated();
+            $validatedData['id_organisateur'] = $userId;
+            $categoryId = $request->input('category');
+            $validatedData['category_id'] = $categoryId;
+        
+            if ($request->hasFile('image')) {
+                $validatedData['image'] = $request->file('image')->store('event', 'public');
+            }
+        
+            $event = Evenement::create($validatedData);
+            
+       //dd($event);
        return redirect()->route('Event.index')->with('success', 'Event created successfully.');
 
     }
@@ -53,11 +60,13 @@ class EvenementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Evenement $evenement)
+    public function show($id)
     {
-        //
+        $evenement = Evenement::with(['organisateur', 'category'])->findOrFail($id);
+    
+        return view('Users.show', compact('evenement'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -80,5 +89,11 @@ class EvenementController extends Controller
     public function destroy(Evenement $evenement)
     {
         //
+    }
+
+    public function search(){
+        $search = $_GET['query'];
+        $Evenet = Evenement::where('titre' , 'LIKE' , '%' .$search.'%')->get();
+        return view('Users.search',compact('Evenet'));
     }
 }
