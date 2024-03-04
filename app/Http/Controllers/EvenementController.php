@@ -16,9 +16,14 @@ class EvenementController extends Controller
      */
     public function index()
     {
-        $Events = Evenement::latest('created_at')->where('status', 'available')->take(5)->get();
+        $Events = Evenement::latest('created_at')
+        ->where('status', 'available')
+        ->take(5)
+        ->get();
         //dd($Events);
-        return view('Users.index' ,compact('Events'));
+       
+        //dd($AllCategory);
+        return view('Users.index' ,compact('Events' ));
 
     }
 
@@ -88,12 +93,38 @@ class EvenementController extends Controller
      */
     public function destroy(Evenement $evenement)
     {
-        //
+       
+        $evenento = Evenement::find($evenement);
+        dd($evenento);
+            $evenement->delete(); 
+        
+        
+        return redirect()->route('Users.index')->with('success', 'Event canceled successfully.');
+    
     }
 
     public function search(){
         $search = $_GET['query'];
+        //dd($search);
         $Evenet = Evenement::where('titre' , 'LIKE' , '%' .$search.'%')->get();
+        //dd($Evenet);
         return view('Users.search',compact('Evenet'));
     }
+
+    public function filter(Request $request)
+{
+    $categoryId = $request->input('category');
+
+    $filteredEvents = Evenement::latest('created_at')
+        ->where('status', 'available')
+        ->when($categoryId, function ($query) use ($categoryId) {
+            $query->where('category_id', $categoryId);
+        })
+        ->take(5)
+        ->get();
+
+        $AllCategory = Category::all();
+
+    return view('Users.index', compact('filteredEvents', 'AllCategory'));
+}   
 }

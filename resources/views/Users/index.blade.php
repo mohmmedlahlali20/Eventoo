@@ -12,6 +12,20 @@
         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
     </div>
 </form>
+<form action="{{ route('events.filter') }}" method="get">
+    @csrf
+    <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
+    <select name="category" id="category" class="form-select text-black w-full">
+        <option value="" selected disabled>Select a category</option>
+        
+        @forelse($AllCategory as $category)
+            <option value="{{ $category->id }}">{{ $category->category_name}}</option>
+        @empty
+            <option value="" disabled>No categories available</option>
+        @endforelse
+    </select>
+    <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Filter</button>
+</form>
 
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -30,13 +44,17 @@
                                 <a href="{{ route('User.show', $event->id) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">More</a>
                             </div>
                             <br>
-                            <p class="text-gray-600">{{ ($event->places_number - $event->reservations->count()) . "/" . $event->places_number }}</p>
+                            <p class="text-gray-600">{{ $event->reservations->count(). "/" . $event->places_number }}</p>
                             <form action="{{ route('reservation.store') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="id_event" value="{{ $event->id }}">
                                 <button type="submit" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Réserver cet événement</button>
                             </form>
-                            
+                            <form action="{{ route('User.destroy', ['User' => $event->id]) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="focus:outline-none text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-red-900">Cancel User</button>
+                            </form>
                       </div>
                     </div>
                 @endif

@@ -27,12 +27,15 @@ Route::get('/', function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/admin', AdminController::class);
     Route::resource('/category', CategoryController::class);
+    Route::resource('/event', EvenementController::class);
 });
 
 Route::middleware(['auth', 'role:Organisateur'])->group(function () {
     Route::resource('/Event', EvenementController::class);
   
 });
+
+Route::get('/events/filter', [EvenementController::class, 'filter'])->name('events.filter');
 //Route::post('/assign-role/{user}', [OrganisateurController::class, 'assignRole'])->name('assign.role');
 
 Route::middleware(['auth'])->group(function () {

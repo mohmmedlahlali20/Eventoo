@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('id_event')->constrained('evenements'); 
             $table->integer('ticket_number')->unique()->nullable();
             $table->enum('status', ['valid', 'invalid']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

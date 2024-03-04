@@ -15,7 +15,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        $reservation = Reservation::all();
+
     }
 
     /**
@@ -57,9 +58,9 @@ class ReservationController extends Controller
              $reservation->save();
              $event->decrement('places_number');
      
-             return redirect()->route('Users.index')->with('success', 'Événement réservé avec succès.');
+             return redirect()->route('reservation.index')->with('success', 'Événement réservé avec succès.');
          } else {
-             return redirect()->route('Users.index')->with('error', 'Désolé...');
+             return redirect()->route('reservation.index')->with('error', 'Désolé...');
          }
      }
      

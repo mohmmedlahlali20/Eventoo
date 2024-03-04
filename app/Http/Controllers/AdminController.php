@@ -16,7 +16,9 @@ class AdminController extends Controller
     public function index()
     {
         $AllUsers = User::paginate(5);
+        
         //dd($AllUsers);
+
         return view('admin.index', compact('AllUsers'));
     }
 
@@ -70,13 +72,13 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $admin)
     {
-        $DeletUser = User::findOrFail($id);
-        dd($DeletUser);
-        $DeletUser->delete();
-        return back()->with('success', 'delete opperateur');
+        //dd($admin);
+        $admin->delete();
+        return back()->with('success', 'Operator deleted successfully.');
     }
+
     public function Statistique()
     {
         $userCount = User::count();

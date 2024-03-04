@@ -32,6 +32,14 @@
             {{ session('success') }}
         </div>
     @endif
+
+    <div class="max-w-md mx-auto mt-5">
+            @if (session('error'))
+        <div id="successMessage" class="bg-red-500 text-white p-4 mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+    </div>
     
         @if ($errors->any())
             @foreach ($errors->all() as $error)

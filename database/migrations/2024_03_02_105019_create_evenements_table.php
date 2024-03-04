@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('validation', ['valid', 'invalid']);
             $table->enum('status', ['available', 'notAvailable']);
             $table->timestamps();
+            $table->softDeletes(); 
             
         });
     }
