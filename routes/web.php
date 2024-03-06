@@ -28,6 +28,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/admin', AdminController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/event', EvenementController::class);
+    Route::get('/evento',[AdminController::class , 'evento'])->name('evento');
+    Route::put('/update-validation/{id}', [AdminController::class ,'updateValidation'])->name('updateValidation');
+
 });
 
 Route::middleware(['auth', 'role:Organisateur'])->group(function () {
@@ -35,7 +38,7 @@ Route::middleware(['auth', 'role:Organisateur'])->group(function () {
   
 });
 
-Route::get('/events/filter', [EvenementController::class, 'filter'])->name('events.filter');
+//Route::get('/events/filter', [EvenementController::class, 'filter'])->name('events.filter');
 //Route::post('/assign-role/{user}', [OrganisateurController::class, 'assignRole'])->name('assign.role');
 
 Route::middleware(['auth'])->group(function () {

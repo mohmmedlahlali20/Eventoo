@@ -12,7 +12,7 @@
         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
     </div>
 </form>
-<form action="{{ route('events.filter') }}" method="get">
+{{-- <form action="{{ route('events.filter') }}" method="get">
     @csrf
     <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
     <select name="category" id="category" class="form-select text-black w-full">
@@ -25,12 +25,12 @@
         @endforelse
     </select>
     <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Filter</button>
-</form>
+</form> --}}
 
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @forelse($Events as $event)
-                @if($event->status == 'available' && $event->validation == 'valid')
+                @if($event->status === 'available' && $event->validation === 'valid')
                     <div class="max-w-md w-full bg-white p-8 rounded shadow-md">
 
                         <img class="w-16 h-16 mx-auto mb-4 rounded-full" src="{{ asset('storage/' . $event->image) }}" alt="Event Picture">

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('places_number');
             $table->foreignId('id_organisateur')->constrained('users');
             $table->foreignId('category_id')->constrained('categories');
-            $table->enum('validation', ['valid', 'invalid']);
+            $table->enum('validation', ['valid', 'invalid'])->delete('invalid');
             $table->enum('status', ['available', 'notAvailable']);
             $table->timestamps();
             $table->softDeletes(); 

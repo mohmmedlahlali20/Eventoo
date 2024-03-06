@@ -33,11 +33,12 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                    <x-nav-link :href="route('evento')" :active="request()->routeIs('evento')">
                         {{ __('All Events') }}
                     </x-nav-link>
                 </div>
                 @endrole
+                
                 @role('Organisateur')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('Event.index')" :active="request()->routeIs('Event.index')">

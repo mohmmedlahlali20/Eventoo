@@ -49,9 +49,9 @@ class User extends Authenticatable
     ];
 
 
-    public function organizedEvents()
+    public function organisateur()
     {
-        return $this->hasMany(Evenement::class, 'id_organisateur');
+        return $this->belongsTo(User::class, 'id_organisateur');
     }
 
     public function reservations()

@@ -16,12 +16,15 @@ class AdminController extends Controller
     public function index()
     {
         $AllUsers = User::paginate(5);
-        
-        //dd($AllUsers);
-
         return view('admin.index', compact('AllUsers'));
     }
 
+
+    public function evento(){
+        $Event = Evenement::with('organisateur', 'category')->paginate(5);
+        //dd($Event);
+        return view('admin.event', compact('Event'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -44,6 +47,18 @@ class AdminController extends Controller
 
         return redirect()->route('admin.create')->with('success', 'Category is added successfully');
     }
+
+    public function updateValidation(Request $request, $id)
+{
+    $event = Evenement::find($id);
+
+    if ($event) {
+        $event->update(['validation' => $event->validation === 'valid' ? 'invalid' : 'valid']);
+        return redirect()->back();
+    }
+
+    
+}
 
     /**
      * Display the specified resource.
