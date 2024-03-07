@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Evenement;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 
@@ -57,7 +58,21 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    
+
+}
+
+public function updateStatus(Request $request, $id)
+{
+    $reservation = Reservation::find($id);
+
+    if ($reservation) {
+        $newStatus = $reservation->status === 'valid' ? 'invalid' : 'valid';
+        $reservation->update(['status' => $newStatus]);
+
+        return redirect()->back();
+    }
+
+    abort(404, 'Reservation not found');
 }
 
     /**

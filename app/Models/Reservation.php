@@ -20,8 +20,9 @@ protected $fillable =[
         return $this->belongsTo(User::class, 'id_user');
     }
 
-    public function evenement()
+    public function event()
     {
         return $this->belongsTo(Evenement::class, 'id_event');
     }
+
 }

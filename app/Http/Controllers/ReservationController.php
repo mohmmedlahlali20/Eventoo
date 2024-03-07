@@ -6,6 +6,7 @@ use App\Models\Evenement;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Requests\EventRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ReservationController extends Controller
@@ -15,9 +16,17 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservation = Reservation::all();
+        $user = Auth::user();
+        
+        $reservat = $user->reservations;
+       
+        $reservations = Reservation::where('id_user', $user->id)->get();
+ 
+        return view('reservation.index', compact('reservations'));
 
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -50,9 +59,7 @@ class ReservationController extends Controller
              $reservation->id_user = auth()->id();
              $reservation->id_event = $request->id_event;
              $reservation->status = 'valid';
-             $reservation->save();
-     
-             //dd( $reservation->id);
+
              $reservation->save();
              $reservation->ticket_number = $reservation->id;
              $reservation->save();
@@ -70,7 +77,7 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        //
+        
     }
 
     /**

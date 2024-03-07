@@ -20,11 +20,7 @@ class EvenementController extends Controller
         ->where('status', 'available')
         ->take(5)
         ->get();
-        //dd($Events);
-       
-        //dd($AllCategory);
         return view('Users.index' ,compact('Events' ));
-
     }
 
     /**
@@ -93,14 +89,9 @@ class EvenementController extends Controller
      */
     public function destroy(Evenement $evenement)
     {
-       
         $evenento = Evenement::find($evenement);
-        dd($evenento);
             $evenement->delete(); 
-        
-        
         return redirect()->route('Users.index')->with('success', 'Event canceled successfully.');
-    
     }
 
     public function search(){

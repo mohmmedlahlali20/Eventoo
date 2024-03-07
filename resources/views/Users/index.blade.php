@@ -25,12 +25,16 @@
         @endforelse
     </select>
     <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Filter</button>
-</form> --}}
+</form> 
+
+$event->status === 'available' &&
+
+--}}
 
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @forelse($Events as $event)
-                @if($event->status === 'available' && $event->validation === 'valid')
+                @if( $event->validation === 'valid')
                     <div class="max-w-md w-full bg-white p-8 rounded shadow-md">
 
                         <img class="w-16 h-16 mx-auto mb-4 rounded-full" src="{{ asset('storage/' . $event->image) }}" alt="Event Picture">
@@ -50,11 +54,13 @@
                                 <input type="hidden" name="id_event" value="{{ $event->id }}">
                                 <button type="submit" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Réserver cet événement</button>
                             </form>
+                            @role('Organisateur')
                             <form action="{{ route('User.destroy', ['User' => $event->id]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="focus:outline-none text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-red-900">Cancel User</button>
                             </form>
+                            @endrole
                       </div>
                     </div>
                 @endif
