@@ -4,6 +4,7 @@
         @forelse($reservations as $reservation)
         <br>
         <div class="bg-white p-6 mb-6 rounded-lg shadow-md relative">
+            @if($reservations->isNotEmpty())
             <form method="post" action="{{ route('reservation.destroy', ['reservation' => $reservation->id]) }}" class="absolute top-0 right-0 m-4">
                 @csrf
                 @method('DELETE')
@@ -12,6 +13,8 @@
                     Cancel Reservation
                 </button>
             </form>
+            @endif
+
     <br><br>
             @role('admin')
             <form method="post" action="{{ route('updateStatus', ['id' => $reservation->id]) }}"

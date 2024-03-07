@@ -63,7 +63,6 @@ class ReservationController extends Controller
         $reservation->save();
         $reservation->ticket_number = $reservation->id;
         $reservation->save();
-        $event->decrement('places_number');
         $reservations = Reservation::all(); 
 
         return view('reservation.index' , compact('reservations'))->with('success' , 'reservation hh');

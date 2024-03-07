@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Evenement;
 use App\Models\Organisateur;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,9 @@ class OrganisateurController extends Controller
      */
     public function index()
     {
-        //
+        $eventita = Evenement::paginate(5);
+        
+        return view('organisateur.CreateEvent' , compact('eventita'));
     }
 
     /**

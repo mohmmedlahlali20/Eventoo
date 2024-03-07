@@ -64,6 +64,14 @@ class CategoryController extends Controller
         //
     }
 
-
+    public function filter(Request $request)
+    {
+       
+        $categories = Category::all();
+    
+     //dd( $categories );
+    
+        return view('Users.index', compact('categories'));
+    }
     
 }

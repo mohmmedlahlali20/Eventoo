@@ -34,7 +34,7 @@
                 <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Image Envent</label>
                 <input type="file" name="image" value="{{ old('image') }}" id="image" class="form-input w-full" >
             </div>
-
+            
             <div class="mb-4">
                 <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
                 <select name="category" id="category"  value="{{ old('category') }}" class="form-select text-black w-full" >

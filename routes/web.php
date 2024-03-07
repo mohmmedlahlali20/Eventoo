@@ -28,6 +28,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/admin', AdminController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/event', EvenementController::class);
+
     Route::get('/evento',[AdminController::class , 'evento'])->name('evento');
     Route::put('/update-validation/{id}', [AdminController::class ,'updateValidation'])->name('updateValidation');
     Route::put('/update-status/{id}', [AdminController::class, 'updateStatus'])->name('updateStatus');
@@ -37,16 +38,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:Organisateur'])->group(function () {
     Route::resource('/Event', EvenementController::class);
-  
+    Route::resource('organisateur', OrganisateurController::class);
 });
 
-//Route::get('/events/filter', [EvenementController::class, 'filter'])->name('events.filter');
+//
 //Route::post('/assign-role/{user}', [OrganisateurController::class, 'assignRole'])->name('assign.role');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('/User', EvenementController::class);
     Route::get('/search', [EvenementController::class , 'search']);
     Route::resource('/reservation', ReservationController::class);
+    Route::get('/events/filter', [CategoryController::class, 'filter'])->name('filterReservations');
    // Route::get('/User/{evenement}', [EvenementController::class , 'detail'])->name('User.show');
 });
 
@@ -55,6 +57,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

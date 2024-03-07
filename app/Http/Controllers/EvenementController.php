@@ -73,7 +73,7 @@ class EvenementController extends Controller
      */
     public function edit(Evenement $evenement)
     {
-        //
+        //return view('organisateur.EditEvent');
     }
 
     /**
@@ -101,21 +101,5 @@ class EvenementController extends Controller
         //dd($Evenet);
         return view('Users.search',compact('Evenet'));
     }
-
-   // public function filter(Request $request)
-// {
-//     $categoryId = $request->input('category');
-
-//     $filteredEvents = Evenement::latest('created_at')
-//         ->where('status', 'available')
-//         ->when($categoryId, function ($query) use ($categoryId) {
-//             $query->where('category_id', $categoryId);
-//         })
-//         ->take(5)
-//         ->get();
-
-//         $AllCategory = Category::all();
-
-//     return view('Users.index', compact('filteredEvents', 'AllCategory'));
-// }   
+  
 }
