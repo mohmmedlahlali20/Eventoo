@@ -89,9 +89,9 @@ class EvenementController extends Controller
      */
     public function destroy(Evenement $evenement)
     {
-        $evenento = Evenement::find($evenement);
+    
             $evenement->delete(); 
-        return redirect()->route('Users.index')->with('success', 'Event canceled successfully.');
+        return redirect()->back()->with('success', 'Event canceled successfully.');
     }
 
     public function search(){
@@ -102,20 +102,20 @@ class EvenementController extends Controller
         return view('Users.search',compact('Evenet'));
     }
 
-    public function filter(Request $request)
-{
-    $categoryId = $request->input('category');
+   // public function filter(Request $request)
+// {
+//     $categoryId = $request->input('category');
 
-    $filteredEvents = Evenement::latest('created_at')
-        ->where('status', 'available')
-        ->when($categoryId, function ($query) use ($categoryId) {
-            $query->where('category_id', $categoryId);
-        })
-        ->take(5)
-        ->get();
+//     $filteredEvents = Evenement::latest('created_at')
+//         ->where('status', 'available')
+//         ->when($categoryId, function ($query) use ($categoryId) {
+//             $query->where('category_id', $categoryId);
+//         })
+//         ->take(5)
+//         ->get();
 
-        $AllCategory = Category::all();
+//         $AllCategory = Category::all();
 
-    return view('Users.index', compact('filteredEvents', 'AllCategory'));
-}   
+//     return view('Users.index', compact('filteredEvents', 'AllCategory'));
+// }   
 }

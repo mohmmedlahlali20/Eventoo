@@ -8,7 +8,7 @@ use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\Auth\socialityController;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -10,7 +10,37 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<style>
+    .statistic-card {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.375rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 1px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .statistic-card span {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
+        color: #38b2ac;
+    }
+
+    .statistic-card h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #4a5568;
+    }
+
+    .statistic-card:hover {
+        transform: translateY(-5px);
+        transition: 0.3s ease-in-out;
+    }
+
+    /* Add more styles as needed */
+</style>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

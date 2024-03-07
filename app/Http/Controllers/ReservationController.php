@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\EventRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ReservationController extends Controller
 {
@@ -41,35 +42,35 @@ class ReservationController extends Controller
      */
  
      public function store(Request $request)
-     {
-         $rules = [
-             'id_event' => 'required|exists:evenements,id',
-         ];
-     
-         $validator = Validator::make($request->all(), $rules);
-     
-         if ($validator->fails()) {
-             return redirect()->back()->withErrors($validator)->withInput();
-         }
-     
-         $event = Evenement::find($request->id_event);
-     //dd( $event);
-         if ($event->places_number > 0) {
-             $reservation = new Reservation();
-             $reservation->id_user = auth()->id();
-             $reservation->id_event = $request->id_event;
-             $reservation->status = 'valid';
+{
+    $rules = [
+        'id_event' => 'required|exists:evenements,id',
+    ];
 
-             $reservation->save();
-             $reservation->ticket_number = $reservation->id;
-             $reservation->save();
-             $event->decrement('places_number');
-     
-             return redirect()->route('reservation.index')->with('success', 'Événement réservé avec succès.');
-         } else {
-             return redirect()->route('reservation.index')->with('error', 'Désolé...');
-         }
-     }
+    $validator = Validator::make($request->all(), $rules);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $event = Evenement::find($request->id_event);
+
+    if ($event->places_number > 0) {
+        $reservation = new Reservation();
+        $reservation->id_user = auth()->id();
+        $reservation->id_event = $request->id_event;
+        $reservation->status = 'valid';
+        $reservation->save();
+        $reservation->ticket_number = $reservation->id;
+        $reservation->save();
+        $event->decrement('places_number');
+        $reservations = Reservation::all(); 
+
+        return view('reservation.index' , compact('reservations'))->with('success' , 'reservation hh');
+    } else {
+        return redirect()->route('reservation.index')->with('error', 'Désolé...');
+    }
+}
      
      
     /**
@@ -101,6 +102,8 @@ class ReservationController extends Controller
      */
     public function destroy(Reservation $reservation)
     {
-        //
+        $reservation->delete();
+        //dd($reservation->delete());
+        return back()->with('success', 'reservation cancled');
     }
 }

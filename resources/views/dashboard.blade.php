@@ -17,30 +17,108 @@
     @role('admin')
     @php
     $userCount = \App\Models\User::count();
+    $activeUserCount = \App\Models\User::where('deleted_at')->count();
     $categoryCount = \App\Models\Category::count();
     $eventCount = \App\Models\Evenement::count();
+    $reservationCount = \App\Models\Reservation::count();
+    $reservationcout = \App\Models\Reservation::where('deleted_at')->count();
+    $unvalidatedEventCount = \App\Models\Evenement::where('validation', false)->count();
+    $validatedEventCount = \App\Models\Evenement::where('validation', true)->count();
     @endphp
 
-    <ul class="flex flex-col md:grid grid-cols-3 gap-5 text-redis-neutral-800 max-w-2xl mx-auto p-10 mt-10">
-        <li
-            class="w-full text-sm font-semibold text-slate-900 p-6 bg-white border border-slate-900/10 bg-clip-padding shadow-md shadow-slate-900/5 rounded-lg flex flex-col justify-center">
-            <span class="mb-1 text-teal-400 font-display text-5xl">{{ $userCount }}</span>
-            Users
-        </li>
-        <li
-            class="w-full text-sm font-semibold text-slate-900 p-6 bg-white border border-slate-900/10 bg-clip-padding shadow-md shadow-slate-900/5 rounded-lg flex flex-col justify-center">
-            <span class="mb-1 text-teal-400 font-display text-5xl">{{ $categoryCount }}</span>
-            Categories
-        </li>
-        <li
-            class="w-full text-sm font-semibold text-slate-900 p-6 bg-white border border-slate-900/10 bg-clip-padding shadow-md shadow-slate-900/5 rounded-lg flex flex-col justify-center">
-            <span class="mb-1 text-teal-400 font-display text-5xl">{{ $eventCount }}</span>
-            Events
-        </li>
-    </ul>
+   
+<div class=" h-screen w-screen">
+    <div class="grid gap-4 lg:gap-8 md:grid-cols-3 p-8 pt-20">
+        <div class="relative p-6 rounded-2xl bg-white shadow ">
+            <div class="space-y-2">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
+                    <span>Number of Users</span>
+                </div>
+                <div class="text-3xl">
+                    {{ $userCount }}
+                </div>
+            </div>
+        </div>
+        <div class="relative p-6 rounded-2xl bg-white shadow ">
+            <div class="space-y-2">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
+                    <span>Users qui sans suprimer</span>
+                </div>
+                <div class="text-3xl">
+                    {{ $activeUserCount }}
+                </div>
+            </div>
+        </div>
+        <div class="relative p-6 rounded-2xl bg-white shadow ">
+            <div class="space-y-2">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
+                    <span>Number category</span>
+                </div>
+                <div class="text-3xl">
+                    {{ $categoryCount }}
+                </div>
+            </div>
+        </div>
+        <div class="relative p-6 rounded-2xl bg-white shadow ">
+            <div class="space-y-2">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
+                    <span>event exist</span>
+                </div>
+                <div class="text-3xl">
+                    {{ $eventCount }}
+                </div>
+            </div>
+        </div>
+        <div class="relative p-6 rounded-2xl bg-white shadow ">
+            <div class="space-y-2">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
+                    <span>event invalid</span>
+                </div>
+                <div class="text-3xl">
+                    {{ $unvalidatedEventCount }}
+                </div>
+            </div>
+        </div>
+        <div class="relative p-6 rounded-2xl bg-white shadow ">
+            <div class="space-y-2">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
+                    <span>event valider</span>
+                </div>
+                <div class="text-3xl">
+                    {{ $validatedEventCount }}
+                </div>
+            </div>
+        </div>
+        <div class="relative p-6 rounded-2xl bg-white shadow ">
+            <div class="space-y-2">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
+                    <span>Reservation</span>
+                </div>
+                <div class="text-3xl">
+                    {{ $reservationCount }}
+                </div>
+            </div>
+        </div>
+        <div class="relative p-6 rounded-2xl bg-white shadow ">
+            <div class="space-y-2">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 ">
+                    <span>cancled Reservation</span>
+                </div>
+                <div class="text-3xl">
+                    {{ $reservationcout }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     @endrole
-
-
- 
 
 </x-app-layout>
