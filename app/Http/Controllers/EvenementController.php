@@ -88,11 +88,11 @@ class EvenementController extends Controller
             $validatedData = $request->validated();
             $Event->fill( $validatedData )->save();
 
-            // if($request->hasFile('image')){
-            //     $validated['image']=$request->file('image')->store('EventsImg','public');
-            // } else{
-            //     $validated['image']=$request->input('image');
-            // }
+            if($request->hasFile('image')){
+                $validated['image']=$request->file('image')->store('EventsImg','public');
+            } else{
+                $validated['image']=$request->input('image');
+            }
             return redirect()->route('Event.index')->with('success', 'Event updated successfully.');
     }
 
@@ -115,18 +115,21 @@ class EvenementController extends Controller
         return view('Users.search',compact('Evenet'));
     }
 
+
     public function filtrage(Request $request){
 
-        $selectedCategory = $request->input('category');
-    
+         $selectedCategory = $request->category;
+    //dd($selectedCategory);
         if ($selectedCategory) {
-            $filteredData = Evenement::where('id', $selectedCategory)->orWhereNull('id')->get();
+            $filteredData = Evenement::where('category_id', $selectedCategory)->get();
         } else {
-            $filteredData = Evenement::whereNull(' id')->get();
+            $filteredData = Evenement::all();
         }
+        dd( $filteredData);
     
         $Evenet = Evenement::all();
     
         return view('Users.filtrage', compact('filteredData', 'Evenet'));
     }
+  
 }

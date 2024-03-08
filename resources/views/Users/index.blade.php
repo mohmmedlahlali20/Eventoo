@@ -22,13 +22,12 @@
             <option value="{{ $category->id }}">{{ $category->category_name   }}</option>
         @endforeach
     </select>
-
     <button type="submit" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md">Filter</button>
 </form>
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @forelse($Events as $event)
-                @if( $event->validation === 'valid')
+                @if( $event->validation == 'valid')
                     <div class="max-w-md w-full bg-white p-8 rounded shadow-md">
 
                         <img class="w-16 h-16 mx-auto mb-4 rounded-full" src="{{ asset('storage/' . $event->image) }}" alt="Event Picture">
