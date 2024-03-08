@@ -71,17 +71,28 @@ class EvenementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Evenement $evenement)
-    {
-        //return view('organisateur.EditEvent');
+    public function edit(Evenement $Event)
+    { 
+        //dd($Event);
+        $Categories = Category::all();
+        return view('organisateur.Edit', compact('Event', 'Categories'));   
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Evenement $evenement)
+    public function update(EventRequest $request, Evenement $Event)
     {
-        //
+        $userId = Auth::id();
+            $validatedData = $request->validated();
+            $Event->fill( $validatedData )->save();
+
+            // if($request->hasFile('image')){
+            //     $validated['image']=$request->file('image')->store('EventsImg','public');
+            // } else{
+            //     $validated['image']=$request->input('image');
+            // }
+            return redirect()->route('Event.index')->with('success', 'Event updated successfully.');
     }
 
     /**

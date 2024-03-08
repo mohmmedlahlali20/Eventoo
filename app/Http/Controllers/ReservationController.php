@@ -17,12 +17,11 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $user ;
+        dd(Auth::user()->id);
+
+        $reservations = Reservation::where('id_user', Auth::user()->id);
         
-        $reservat = $user->reservations;
-       
-        $reservations = Reservation::where('id_user', $user->id)->get();
- 
         return view('reservation.index', compact('reservations'));
 
     }
@@ -69,6 +68,7 @@ class ReservationController extends Controller
     } else {
         return redirect()->route('reservation.index')->with('error', 'Désolé...');
     }
+
 }
      
      

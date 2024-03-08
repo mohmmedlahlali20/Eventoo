@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Category;
 use App\Models\Evenement;
 use App\Models\Organisateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrganisateurController extends Controller
 {
@@ -13,27 +15,31 @@ class OrganisateurController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $eventita = Evenement::paginate(5);
-        
-        return view('organisateur.CreateEvent' , compact('eventita'));
-    }
+{
 
+    $userId = Auth::id();
+//dd( $userId );
+    $events = Evenement::where('id_organisateur', $userId)->paginate(5);
+
+    return view('organisateur.Event', compact('events'));
+
+}
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+        
+}
 
     /**
      * Display the specified resource.
@@ -48,7 +54,7 @@ class OrganisateurController extends Controller
      */
     public function edit(Organisateur $organisateur)
     {
-        //
+        
     }
 
     /**

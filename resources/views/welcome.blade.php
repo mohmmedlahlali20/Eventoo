@@ -28,6 +28,7 @@
         </div>
     @endif
 
-
+@role('user')
+@endrole
     </body>
 </html>

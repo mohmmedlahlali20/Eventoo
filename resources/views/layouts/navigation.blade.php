@@ -50,11 +50,7 @@
                         {{ __('Add new Event') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('organisateur.edit')" :active="request()->routeIs('organisateur.edit')">
-                        {{ __('Edit Event') }}
-                    </x-nav-link>
-                </div>
+                 
                 @endrole
             </div>
 
