@@ -20,7 +20,8 @@ class EvenementController extends Controller
         ->where('status', 'available')
         ->take(5)
         ->get();
-        return view('Users.index' ,compact('Events' ));
+        $Categories =  Category::all();
+        return view('Users.index' ,compact('Events' , 'Categories'));
     }
 
     /**
@@ -110,7 +111,22 @@ class EvenementController extends Controller
         //dd($search);
         $Evenet = Evenement::where('titre' , 'LIKE' , '%' .$search.'%')->get();
         //dd($Evenet);
+       
         return view('Users.search',compact('Evenet'));
     }
-  
+
+    public function filtrage(Request $request){
+
+        $selectedCategory = $request->input('category');
+    
+        if ($selectedCategory) {
+            $filteredData = Evenement::where('id', $selectedCategory)->orWhereNull('id')->get();
+        } else {
+            $filteredData = Evenement::whereNull(' id')->get();
+        }
+    
+        $Evenet = Evenement::all();
+    
+        return view('Users.filtrage', compact('filteredData', 'Evenet'));
+    }
 }

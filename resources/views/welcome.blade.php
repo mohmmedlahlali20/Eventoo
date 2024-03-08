@@ -27,8 +27,17 @@
             @endauth
         </div>
     @endif
+    @role('user')
 
-@role('user')
-@endrole
+    <form method="post" action="{{ route('assign.organisateur', ['user' => $user->id]) }}">
+    
+        @csrf
+    
+        @method('post')
+    
+        <button type="submit">Assign Role Organisateur</button>
+    
+    </form>
+    @endrole
     </body>
 </html>

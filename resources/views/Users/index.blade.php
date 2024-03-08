@@ -13,11 +13,18 @@
     </div>
 </form>
 
-{{--
-$event->status === 'available' &&
+<form method="get" action="{{ url('/filtrage') }}" class="max-w-sm mx-auto">
+    <label for="categories" class="block mb-2 text-sm font-medium text-white dark:text-white">Filter by category</label>
+    <select name="category" id="categories" class="bg-gray-50 border border-gray-300 text-green text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="" selected>Choose a Category</option>
+        @foreach($Categories as $category)
+        
+            <option value="{{ $category->id }}">{{ $category->category_name   }}</option>
+        @endforeach
+    </select>
 
---}}
-
+    <button type="submit" class="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md">Filter</button>
+</form>
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @forelse($Events as $event)

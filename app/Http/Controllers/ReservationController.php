@@ -18,7 +18,7 @@ class ReservationController extends Controller
     public function index()
     {
         $user ;
-        dd(Auth::user()->id);
+        //dd(Auth::user()->id);
 
         $reservations = Reservation::where('id_user', Auth::user()->id);
         

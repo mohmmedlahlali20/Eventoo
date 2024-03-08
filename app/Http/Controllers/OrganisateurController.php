@@ -32,6 +32,15 @@ class OrganisateurController extends Controller
         
         
     }
+ 
+    public function assignOrganisateur(User $user)
+    {
+        $userId = Auth::id();
+        $user = User::findOrFail($userId);
+        $user->assignRole('organisateur');
+
+        return redirect()->back()->with('success', 'Role "organisateur" assigned successfully.');
+    }
 
     /**
      * Store a newly created resource in storage.

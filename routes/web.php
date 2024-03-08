@@ -47,8 +47,11 @@ Route::middleware(['auth', 'role:Organisateur'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('/User', EvenementController::class);
     Route::get('/search', [EvenementController::class , 'search']);
+    Route::get('/filtrage', [EvenementController::class, 'filtrage']);
     Route::resource('/reservation', ReservationController::class);
     Route::get('/events/filter', [CategoryController::class, 'filter'])->name('filterReservations');
+    Route::post('/assign-organisateur/{user}', [OrganisateurController::class , 'assignOrganisateur'])->name('assign.organisateur');
+
    // Route::get('/User/{evenement}', [EvenementController::class , 'detail'])->name('User.show');
 });
 
