@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->integer('places_number');
             $table->foreignId('id_organisateur')->constrained('users');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('category_id')
+            ->constrained('categories')
+            ->onDelete('cascade'); 
             $table->enum('validation', ['valid', 'invalid'])->default('invalid');
             $table->enum('status', ['available', 'notAvailable']);
             $table->timestamps();

@@ -16,10 +16,12 @@ class EvenementController extends Controller
      */
     public function index()
     {
-        $Events = Evenement::latest('created_at')
-        ->where('status', 'available')
-        ->take(5)
-        ->get();
+        if (auth()->user()->hasRole('Organisateur')) {
+            $Events = Evenement::where('id_organisateur', auth()->user()->id)->get();
+        } else {
+            $Events = Evenement::all();
+        }
+ 
         $Categories =  Category::all();
         return view('Users.index' ,compact('Events' , 'Categories'));
     }
@@ -51,7 +53,7 @@ class EvenementController extends Controller
             if ($request->hasFile('image')) {
                 $validatedData['image'] = $request->file('image')->store('event', 'public');
             }
-        
+        //dd($validatedData['image']);
             $event = Evenement::create($validatedData);
             
        //dd($event);
@@ -86,50 +88,56 @@ class EvenementController extends Controller
     {
         $userId = Auth::id();
             $validatedData = $request->validated();
-            $Event->fill( $validatedData )->save();
+            
 
             if($request->hasFile('image')){
-                $validated['image']=$request->file('image')->store('EventsImg','public');
+                $validated['image']=$request->file('image')->store('event','public');
             } else{
                 $validated['image']=$request->input('image');
             }
+
+            $Event->fill( $validatedData )->save();
             return redirect()->route('Event.index')->with('success', 'Event updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evenement $evenement)
+    public function destroy(Evenement $Event)
     {
+        //dd($Event->delete());
     
-            $evenement->delete(); 
-        return redirect()->back()->with('success', 'Event canceled successfully.');
+            $Event->delete(); 
+        return redirect()->route('User.index')->with('success', 'Event canceled successfully.');
     }
 
     public function search(){
         $search = $_GET['query'];
         //dd($search);
-        $Evenet = Evenement::where('titre' , 'LIKE' , '%' .$search.'%')->get();
-        //dd($Evenet);
-       
-        return view('Users.search',compact('Evenet'));
-    }
-
-
-    public function filtrage(Request $request){
-
-         $selectedCategory = $request->category;
-    //dd($selectedCategory);
-        if ($selectedCategory) {
-            $filteredData = Evenement::where('category_id', $selectedCategory)->get();
+        if ($search !== null) {
+            $Evenet = Evenement::where('titre', 'LIKE', '%' . $search . '%')->get();
+            return view('Users.search', compact('Evenet'));
         } else {
-            $filteredData = Evenement::all();
+            return redirect()->back()->with('error', 'Search parameter missing');
         }
-        dd( $filteredData);
-    
-        $Evenet = Evenement::all();
-    
-        return view('Users.filtrage', compact('filteredData', 'Evenet'));
     }
-  
+
+
+    public function filtrage(Request $request)
+    {
+        $selectedCategory = $request->category;
+        $Categories = Category::all();
+
+        $query = Evenement::with('category');
+    
+        if ($selectedCategory) {
+            $query->where('category_id', $selectedCategory);
+        }
+
+        $filteredData = $query->get();
+    
+        return view('Users.filtrage', compact('filteredData', 'Categories'));
+    }
+
+
 }

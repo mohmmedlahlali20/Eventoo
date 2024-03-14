@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Evenement;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -59,19 +60,26 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
-    {
-        //
-    }
 
-    public function filter(Request $request)
-    {
-       
-        $categories = Category::all();
-    
-     //dd( $categories );
-    
-        return view('Users.index', compact('categories'));
-    }
+     public function destroy(Category $category)
+     {
+
+         $eventsWithCategory = Evenement::where('category_id', $category->id)->exists();
+
+         if ($eventsWithCategory) {
+             return redirect()->back()->with('error', 'Cannot delete category. It is associated with events.');
+         }
+
+         $isDeleted = $category->delete();
+     
+         if ($isDeleted) {
+             return redirect()->back()->with('success', 'Category deleted successfully');
+         }
+     
+         return redirect()->back()->with('error', 'Failed to delete category');
+     }
+     
+
+
     
 }

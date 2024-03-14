@@ -26,6 +26,28 @@ class AdminController extends Controller
         //dd($Event);
         return view('admin.event', compact('Event'));
     }
+
+    public function reserv(){
+        $reservatio = Reservation::paginate(10);
+        return view('admin.reservation', compact('reservatio'));
+    }
+
+    public function updateStatus(Request $request, Reservation $reservation)
+        {
+            
+   
+                if ($reservation && $reservation->event->id_organisateur == auth()->user()->id) {
+                    $newStatus = $reservation->status === 'valid' ? 'invalid' : 'valid';
+                    $reservation->update(['status' => $newStatus]);
+                    return redirect()->back();
+                }
+            
+                abort(404, 'Reservation not found or unauthorized');
+            
+            
+        }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -61,19 +83,9 @@ class AdminController extends Controller
 
 }
 
-public function updateStatus(Request $request, $id)
-{
-    $reservation = Reservation::find($id);
 
-    if ($reservation) {
-        $newStatus = $reservation->status === 'valid' ? 'invalid' : 'valid';
-        $reservation->update(['status' => $newStatus]);
 
-        return redirect()->back();
-    }
 
-    abort(404, 'Reservation not found');
-}
 
     /**
      * Display the specified resource.
@@ -109,12 +121,31 @@ public function updateStatus(Request $request, $id)
         return back()->with('success', 'Operator deleted successfully.');
     }
 
-    public function Statistique()
-    {
-        $userCount = User::count();
-        $categoryCount = Category::count();
-        $eventCount = Evenement::count();
-    
-        return view('dashboard', compact('userCount', 'categoryCount', 'eventCount'));
-    }
+  
+public function getStats()
+{
+    $userCount = User::count();
+    $activeUserCount = User::where('deleted_at')->count();
+    $categoryCount = Category::count();
+    $eventCount = Evenement::count();
+    $reservationCount = Reservation::count();
+    $reservationInvalid = Reservation::where('status', 'invalid')->count();
+    $reservationValid = Reservation::where('status', 'valid')->count();
+    $reservationCountDeleted = Reservation::where('deleted_at')->count();
+    $unvalidatedEventCount = Evenement::where('validation', 'invalid')->count();
+    $validatedEventCount = Evenement::where('validation', 'valid')->count();
+
+    return view('dashboard', compact(
+        'userCount',
+        'activeUserCount',
+        'categoryCount',
+        'eventCount',
+        'reservationCount',
+        'reservationInvalid',
+        'reservationValid',
+        'reservationCountDeleted',
+        'unvalidatedEventCount',
+        'validatedEventCount'
+    ));
+}
 }

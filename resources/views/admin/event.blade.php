@@ -14,6 +14,7 @@
                         <th scope="col" class="px-6 py-3">date</th>
                         <th scope="col" class="px-6 py-3">image</th>
                         <th scope="col" class="px-6 py-3">places number</th>
+                        <th scope="col" class="px-6 py-3">number reservation</th>
                         <th scope="col" class="px-6 py-3">organisateur</th>
                         <th scope="col" class="px-6 py-3">category</th>
                         <th scope="col" class="px-6 py-3">status</th>
@@ -29,9 +30,10 @@
                             <td class="px-6 py-4">{{ $even->lieu }}</td>
                             <td class="px-6 py-4">{{ $even->date }}</td>
                             <td class="px-6 py-4">
-                                <img class="w-60 h-16 mx-auto mb-4 rounded-full" src="{{ asset('storage/'. $even->image) }}" alt="Event Picture">
+                                <img class="w-40 h-30 mx-auto mb-4 " src="{{ asset('storage/'. $even->image) }}" alt="Event Picture">
                             </td>
                             <td class="px-6 py-4">{{ $even->places_number }}</td>
+                            <td class="px-6 py-4">{{ $even->reservations->count(). "/" . $even->places_number   }}</td>
                             <td class="px-6 py-4">{{ $even->organisateur->name }}</td>
                             <td class="px-6 py-4">{{ $even->category->category_name }}</td>
                             <td class="px-6 py-4">
@@ -39,21 +41,19 @@
                                     @csrf
                                     @method('PUT')
                                     <button type="submit"
-                                     class="text-white 
+                                     class="text-white
                                      bg-{{ $even->validation === 'valid' ? 'green-700' : 'red-700' }} 
                                      hover:bg-{{ $even->validation === 'valid' ? 'green-800' : 'red-800' }} 
                                      focus:ring-4 focus:ring-{{ $even->validation === 'valid' ? 'green-300' : 'red-300' }}
                                       font-medium rounded-lg text-sm px-5 py-2.5 
                                       dark:bg-{{ $even->validation === 'valid' ? 'green-600' : 'red-600' }} 
                                       dark:hover:bg-{{ $even->validation === 'valid' ? 'green-700' : 'red-700' }} 
-                                      focus:outline-none dark:focus:ring-{{ $even->validation === 'valid' ? 'green-800' : 'red-800' }}">
+                                      focus:outline-none dark:focus:ring-{{ $even->validation === 'valid' ? 'green-800' : 'red-800' }}"
+                                      onclick="return confirm('change status')">
                                         {{ $even->validation }}
                                     </button>
                                 </form>
                             </td>
-                            
-                            
-                            
                         </tr>
                     @empty
                         <tr>

@@ -22,14 +22,14 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titre'=>'required|min:3',
-            'description'=>'required|min:20',
-            'lieu'=>'required',
+            'titre' => 'required|min:3',
+            'description' => 'required|min:20',
+            'lieu' => 'required',
             'date' => 'required|date',
-            'image'=>'',
-            'places_number'=>'numeric',
-            'category'=>'required',
-            'status'=>'required',
+            'image' => 'image',
+            'places_number' => 'required|numeric',
+            'category' => 'required',
+            'status' => 'required',
             
         ];
     }
